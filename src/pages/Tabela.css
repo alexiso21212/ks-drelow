@@ -1,0 +1,79 @@
+.tabela-container {
+    width: 100vw; /* pełna szerokość okna */
+    margin: 0;
+    padding: 40px 0;
+    background-color: #f8fafc;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .tabela-inner {
+    width: 95%;
+    max-width: 1600px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    padding: 20px;
+  }
+  
+  .tabela-container h2 {
+    text-align: left;
+    font-size: 1.9rem;
+    margin-bottom: 20px;
+    color: #003f8a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .league-table {
+    width: 100%;
+    border-collapse: collapse; /* łączenie krawędzi */
+    border: 1px solid #d3d3d3; /* ramka wokół całej tabeli */
+  }
+  
+  .league-table th,
+  .league-table td {
+    text-align: center;
+    padding: 5px 10px;
+    font-size: 1rem;
+    border: 1px solid #d3d3d3; /* linie pionowe i poziome */
+    vertical-align: middle;
+  }
+  
+  .league-table th {
+    background-color: #005bbb;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+  
+  .league-table tr:nth-child(even) {
+    background-color: #f4f8ff; /* delikatne tło co drugi wiersz */
+  }
+  
+  .league-table tr:hover {
+    background-color: #e6f0ff;
+    transition: background 0.25s ease;
+  }
+  
+  .team-logo {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+  }
+  
+  .team-name {
+    text-align: left;
+    font-weight: 600;
+    padding-left: 10px;
+    color: #222;
+  }
+  
+  .points {
+    font-weight: 700;
+    color: #005bbb;
+  }
+  

@@ -1,0 +1,65 @@
+.terminarz-container {
+  padding: 60px 80px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.terminarz-container h1 {
+  color: #001f3f;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  font-weight: 700;
+}
+
+/* 🔹 Tabela */
+.terminarz-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid #ccc; /* 🔹 delikatna ramka wokół tabeli */
+}
+
+/* 🔹 Nagłówki */
+.terminarz-table th {
+  background-color: #001f3f;
+  color: white;
+  padding: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 1px solid #ccc; /* 🔹 linie między kolumnami */
+}
+
+/* 🔹 Komórki */
+.terminarz-table td {
+  padding: 15px;
+  border: 1px solid #ddd; /* 🔹 linie pionowe i poziome */
+}
+
+/* 🔹 Naprzemienne kolory wierszy */
+.terminarz-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* 🔹 Efekt najechania */
+.terminarz-table tr:hover {
+  background-color: #eef6ff;
+  transition: background-color 0.3s;
+}
+
+/* 🔹 Zaokrąglenie rogów */
+.terminarz-table thead tr:first-child th:first-child {
+  border-top-left-radius: 10px;
+}
+.terminarz-table thead tr:first-child th:last-child {
+  border-top-right-radius: 10px;
+}
+.terminarz-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+.terminarz-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}

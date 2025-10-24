@@ -32,8 +32,9 @@ function Navbar() {
       </Link>
 
       {/* Linki */}
-      <ul className="navbar-links">
-        <li><Link to="/">Aktualności</Link></li>
+      <ul className="navbar-center">
+      <li><Link to="/aktualnosci">Aktualności</Link></li>
+
 
         <li
           className={`dropdown ${openMenu === "klub" ? "open" : ""}`}
@@ -77,12 +78,15 @@ function Navbar() {
         </li>
 
         <li><Link to="/stadion">Stadion</Link></li>
+        <li><Link to="/galeria">Galeria</Link></li>
         <li><Link to="/kontakt">Kontakt</Link></li>
 
+        
         {/* Jeśli admin → pokaż Panel */}
-        {user?.role === "admin" && (
-          <li><Link to="/panel">Panel zarządzania</Link></li>
-        )}
+{user && user.role === "admin" && (
+  <li><Link to="/panel">Panel zarządzania</Link></li>
+)}
+
 
         {/* Ikona użytkownika / wylogowanie */}
         <li className="login-icon">

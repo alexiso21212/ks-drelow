@@ -1,0 +1,32 @@
+.zarzad-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: left;
+    font-family: "Arial", sans-serif;
+  }
+  
+  .zarzad-container h1 {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .zarzad-member {
+    margin-bottom: 30px;
+  }
+  
+  .zarzad-member h3 {
+    font-style: italic;
+    font-weight: bold;
+  }
+  
+  .zarzad-member ul {
+    list-style-type: disc;
+    margin-left: 30px;
+  }
+  
+  .zarzad-member li {
+    margin-top: 8px;
+    font-size: 18px;
+  }
+  

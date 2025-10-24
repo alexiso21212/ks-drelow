@@ -83,62 +83,130 @@
 
 
 /* 🔹 Aktualności */
+/* 🔹 Sekcja aktualności na stronie głównej */
 .news {
-  padding: 60px 100px;
+  padding: 60px 80px;
+  background-color: #f5f5f5;
   text-align: center;
-  background-color: white;
 }
 
 .news h2 {
-  font-size: 2rem;
-  margin-bottom: 30px;
   color: #001f3f;
+  margin-bottom: 40px;
+  font-size: 2rem;
+  font-weight: 700;
 }
 
+/* 🔹 Siatka */
 .news-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 25px;
 }
 
-.news-grid article {
-  background: #f8f9fa;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
+/* 🔹 Karta aktualności */
+.news-card {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden; /* 🔹 kluczowe – pozwala obrazkowi się rozciągnąć */
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
 }
 
-.news-grid article:hover {
+.news-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
+
+/* 🔹 Obrazek */
+.news-card img {
+  width: 100%;
+  height: 220px; /* możesz zmniejszyć np. na 180px */
+  object-fit: cover; /* 🔹 przycina, zamiast rozciągać */
+  object-position: center;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* 🔹 Tytuł + przycisk */
+.news-content {
+  padding: 15px 10px 25px;
+}
+
+.news-content h3 {
+  color: #001f3f;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  line-height: 1.3;
+}
+
+.news-content .btn {
+  background-color: #001f3f;
+  color: #fff;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.news-content .btn:hover {
+  background-color: #00b4d8;
+}
+
+
 
 /* 🔹 Sponsorzy */
+/* 🔹 Sponsorzy – układ siatki jak tabelka z logo */
 .sponsors {
-  background-color: #001f3f;
-  padding: 50px 0;
+  background-color: #f5f5f5;
+  padding: 60px 80px;
+  text-align: center;
 }
 
 .sponsors h2 {
-  color: rgb(255, 255, 255);
-  text-align: center;
-  margin-bottom: 30px;
+  color: #001f3f;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  font-weight: 700;
 }
 
+/* Siatka sponsorów */
 .sponsor-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 25px;
-  justify-items: center;
-  align-items: center;
-  padding: 0 50px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* 🔹 równe kolumny */
+  gap: 0; /* 🔹 bez odstępów, jak w tabeli */
+  border: 2px solid #d0d0d0;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
 }
 
+/* Komórka (pojedyncze logo) */
+.sponsor-grid div {
+  border: 1px solid #d0d0d0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  height: 80px;
+  background-color: #ffffff;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.sponsor-grid div:hover {
+  background-color: #f0f8ff;
+  transform: scale(1.02);
+}
+
+/* Logo */
 .sponsor-grid img {
-  width: 100px;
+  width: 140px;
   height: 100px;
   object-fit: contain;
-  filter: grayscale(40%);
+  filter: grayscale(30%);
   transition: filter 0.3s, transform 0.3s;
 }
 
@@ -146,3 +214,4 @@
   filter: grayscale(0%);
   transform: scale(1.05);
 }
+

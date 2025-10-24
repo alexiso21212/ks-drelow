@@ -1,4 +1,5 @@
 import "./Home.css";
+import { useEffect, useState } from "react";
 import stadion from "../assets/images/stadion.jpg";
 import sponsor1 from "../assets/images/sponsor1.jpg";
 import sponsor2 from "../assets/images/sponsor2.jpg";
@@ -19,9 +20,26 @@ import klub1 from "../assets/images/klub1.jpg";
 import aboutImage from "../assets/images/logo1.png";
 
 function Home() {
+  // 🔹 Stan na aktualności
+  const [news, setNews] = useState([]);
+
+  // 🔹 Pobierz najnowsze aktualności (max 3)
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const res = await fetch("http://localhost:8888/ks-drelow-api/news.php");
+        const data = await res.json();
+        setNews(data.slice(0, 3)); // pokaz 3 najnowsze
+      } catch (err) {
+        console.error("Błąd przy pobieraniu aktualności:", err);
+      }
+    };
+    fetchNews();
+  }, []);
+
   return (
     <div className="home">
-      {/* 🔹 Baner (mniejszy i z przyciskiem) */}
+      {/* 🔹 Baner */}
       <section className="hero" style={{ backgroundImage: `url(${stadion})` }}>
         <div className="overlay">
           <div className="hero-content">
@@ -29,7 +47,12 @@ function Home() {
             <p data-aos="fade-up" data-aos-delay="100">
               Pasja. Praca. Rozwój. Oficjalna strona klubu sportowego.
             </p>
-            <a href="/historia" className="btn" data-aos="fade-up" data-aos-delay="200">
+            <a
+              href="/historia"
+              className="btn"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
               Poznaj historię klubu
             </a>
           </div>
@@ -41,48 +64,62 @@ function Home() {
         <div className="about-content" data-aos="fade-right">
           <h2>O klubie</h2>
           <p>
-            KS Drelów to klub z pasją i tradycją. Naszym celem jest rozwój młodych zawodników
-            oraz propagowanie zdrowego stylu życia. Stawiamy na współpracę, zaangażowanie
-            i budowanie sportowej wspólnoty wśród dzieci i młodzieży.
+            KS Drelów to klub z pasją i tradycją. Naszym celem jest rozwój
+            młodych zawodników oraz propagowanie zdrowego stylu życia. Stawiamy
+            na współpracę, zaangażowanie i budowanie sportowej wspólnoty wśród
+            dzieci i młodzieży.
           </p>
         </div>
-        <div className="about-image" data-aos="fade-left"
-        style={{ backgroundImage: `url(${aboutImage})`}}
+        <div
+          className="about-image"
+          data-aos="fade-left"
+          style={{ backgroundImage: `url(${aboutImage})` }}
         ></div>
       </section>
 
       {/* 🔹 Aktualności */}
-      <section className="news">
-        <h2 data-aos="fade-up">Aktualności</h2>
+          <section className="news">
+      <h2>Aktualności 📰</h2>
+
+      {news.length === 0 ? (
+        <p>Brak aktualności do wyświetlenia.</p>
+      ) : (
         <div className="news-grid">
-          <article data-aos="zoom-in">
-            <h3>Wygrana w meczu ligowym!</h3>
-            <p>Nasza drużyna młodzików zwyciężyła 3:1 💪🔥</p>
+          {news.map((n) => (
+            <article key={n.id} className="news-card">
+            <img src={n.image} alt={n.title} />
+            <div className="news-content">
+              <h3>{n.title}</h3>
+              <a href="/aktualnosci" className="btn">Czytaj więcej</a>
+            </div>
           </article>
-          <article data-aos="zoom-in" data-aos-delay="100">
-            <h3>Nowy trener bramkarzy</h3>
-            <p>Do sztabu dołączył trener specjalizujący się w szkoleniu bramkarzy.</p>
-          </article>
-          <article data-aos="zoom-in" data-aos-delay="200">
-            <h3>Turniej w Białej Podlaskiej</h3>
-            <p>Akademia przedszkolaka wzięła udział w piłkarskim festiwalu ⚽</p>
-          </article>
+          
+          ))}
         </div>
-      </section>
+      )}
+    </section>
 
       {/* 🔹 Sponsorzy */}
       <section className="sponsors">
         <h2 data-aos="fade-up">Nasi sponsorzy i partnerzy</h2>
         <div className="sponsor-grid">
-          {[sponsor1, sponsor2, sponsor3, sponsor4, sponsor5, sponsor6, sponsor7, sponsor8,
-            sponsor9, sponsor10, sponsor11, sponsor12, sponsor13, sponsor14, sponsor15, klub1].map((s, i) => (
-            <img key={i} src={s} alt={`Sponsor ${i + 1}`} data-aos="zoom-in" data-aos-delay={i * 50} />
+          {[
+            sponsor1, sponsor2, sponsor3, sponsor4, sponsor5, sponsor6,
+            sponsor7, sponsor8, sponsor9, sponsor10, sponsor11, sponsor12,
+            sponsor13, sponsor14, sponsor15, klub1,
+          ].map((s, i) => (
+            <div
+              key={i}
+              className="sponsor-cell"
+              data-aos="zoom-in"
+              data-aos-delay={i * 50}
+            >
+              <img src={s} alt={`Sponsor ${i + 1}`} />
+            </div>
           ))}
         </div>
       </section>
-      
     </div>
-    
   );
 }
 

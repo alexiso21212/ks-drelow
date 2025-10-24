@@ -1,70 +1,99 @@
-.auth-container {
-    min-height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #001f3f, #004b8d);
-  }
-  
-  .auth-box {
-    background-color: white;
-    padding: 40px 60px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    width: 350px;
-  }
-  
-  .auth-box h2 {
-    color: #001f3f;
-    margin-bottom: 20px;
-  }
-  
-  .auth-box form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .auth-box input {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-  }
-  
-  .auth-box button {
-    background-color: #001f3f;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .auth-box button:hover {
-    background-color: #0077b6;
-  }
-  
-  .auth-message {
-    margin-top: 15px;
-    font-weight: 500;
-    color: #0077b6;
-  }
-  
-  .auth-switch {
-    margin-top: 20px;
-  }
-  
-  .auth-switch a {
-    color: #0077b6;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .auth-switch a:hover {
-    text-decoration: underline;
-  }
-  
+/* 🧱 Kontener formularza */
+.login-container {
+  max-width: 420px;
+  margin: 80px auto;
+  background: #f9fbff;
+  padding: 40px 35px;
+  border-radius: 18px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+/* 🧾 Nagłówek (ikona + tekst) */
+.login-container h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #001f3f;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* 🔹 Formularz */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+/* ✏️ Pola input */
+.login-form input {
+  width: 100%;
+  max-width: 350px;
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.login-form input:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 4px rgba(0, 86, 179, 0.3);
+}
+
+/* 🔘 Przycisk */
+.login-form button {
+  width: 100%;
+  max-width: 350px;
+  background-color: #174ea6;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-form button:hover {
+  background-color: #003c8f;
+}
+
+/* 💬 Komunikaty */
+.login-message {
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.login-message.success {
+  color: #1b9e2e;
+}
+
+.login-message.error {
+  color: #d9534f;
+}
+
+/* 🔗 Link do rejestracji / logowania */
+.register-link {
+  text-align: center;
+  font-size: 15px;
+  margin-top: 10px;
+  color: #333;
+}
+
+.register-link a {
+  color: #174ea6;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}

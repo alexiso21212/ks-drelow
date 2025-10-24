@@ -1,32 +1,23 @@
-/* 🔹 Ikona logowania */
-.login-icon {
-  margin-left: 20px;
-}
-
-.login-icon a {
-  color: white;
-  display: flex;
-  align-items: center;
-  transition: color 0.3s ease;
-}
-
-.login-icon a:hover {
-  color: #00b4d8;
-}
-
+/* 🔹 Pasek nawigacji */
 .navbar {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   background-color: #001f3f;
   padding: 10px 40px;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* 🔹 Logo klubu po lewej */
 .navbar-logo {
   display: flex;
   align-items: center;
   gap: 10px;
+  text-decoration: none;
 }
 
 .navbar-logo img {
@@ -37,83 +28,95 @@
 
 .navbar-logo span {
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: bold;
 }
 
-.navbar-links {
-  list-style: none;
+/* 🔹 Sekcja środkowa – linki */
+.navbar-center {
+  flex: 1;
   display: flex;
-  gap: 40px;
-  margin: 0;
+  justify-content: space-evenly; /* 🔥 równomierne rozmieszczenie */
+  align-items: center;
+  list-style: none;
+  margin: 0 40px;
   padding: 0;
 }
 
-.navbar-links li {
+.navbar-center li {
   position: relative;
+  display: flex;
+  align-items: center; /* 🔥 teksty wszystkich linków wyrównane w jednej linii */
+  justify-content: center;
+  text-align: center;
+  padding: 0 10px;
+  height: 60px;
 }
 
-.navbar-links a {
+.navbar-center a {
   color: white;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s;
+  font-size: 1rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center; /* 🔥 wyrównanie tekstu względem linii bazowej */
+  justify-content: center;
+  transition: color 0.3s ease;
+  position: relative;
 }
 
-.navbar-links a:hover {
+.navbar-center a:hover {
   color: #00b4d8;
 }
 
-/* Strzałka – cienka i animowana */
+/* 🔹 Dropdown strzałka */
 .arrow {
-  display: block;
-  text-align: center;
+  position: absolute; /* 🔥 strzałka nie przesuwa tekstu */
+  bottom: 10px;       /* 🔥 ustaw ją niżej od tekstu */
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 0.6rem;
   color: white;
-  margin-top: 2px;
+  pointer-events: none;
   transition: transform 0.3s ease;
 }
 
-/* Obrót strzałki przy rozwinięciu */
 .dropdown.open .arrow {
   transform: rotate(180deg);
 }
 
-/* Dropdown menu */
+/* 🔹 Dropdown menu */
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
   background-color: #0b1a2e;
-  flex-direction: column;
   min-width: 180px;
-  text-align: left;
-  padding: 0;
   border-radius: 6px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  z-index: 999;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-10px);
   transition: all 0.3s ease;
-  overflow: hidden;
-}
+  text-align: center;
+  z-index: 999;
+    list-style: none; /* 🔥 usuwa te kropki po lewej */
+    padding-left: 0;
+  }
+  
 
 .dropdown-menu.show {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
-}
-
-.dropdown-menu li {
-  list-style: none;
+  transform: translateX(-50%) translateY(0);
 }
 
 .dropdown-menu li a {
   display: block;
+  padding: 10px 14px;
   color: white;
   text-decoration: none;
-  padding: 10px 16px;
   transition: background-color 0.3s ease;
 }
 
@@ -121,17 +124,61 @@
   background-color: rgba(255, 255, 255, 0.15);
 }
 
-.logout-btn {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 1rem;
-  transition: color 0.3s ease;
+/* 🔹 Ikona logowania – po prawej stronie */
+.login-icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-.logout-btn:hover {
+.login-icon a {
+  color: white;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+  font-size: 1.6rem;
+}
+
+.login-icon a:hover {
   color: #00b4d8;
 }
 
+.logout-btn {
+  background: none;
+  border: 1px solid #00b4d8;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #00b4d8;
+  color: #001f3f;
+}
+
+/* 🔹 Responsywność */
+@media (max-width: 900px) {
+  .navbar {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .navbar-center {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .login-icon {
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .dropdown-menu {
+    position: static;
+    transform: none;
+    box-shadow: none;
+    background-color: #001f3f;
+  }
+}
