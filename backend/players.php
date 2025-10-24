@@ -1,69 +1,107 @@
 <?php
+session_start();
+
+// ✅ Pełne nagłówki CORS – pozwalają na połączenie z React (localhost:3000 lub 3001)
 header("Access-Control-Allow-Origin: http://localhost:3000");
 header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
-header("Content-Type: application/json");
+header("Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS");
+header("Content-Type: application/json; charset=UTF-8");
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// 🔹 Obsługa preflight (CORS)
+if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
+    http_response_code(200);
+    exit;
+}
 
-include("db.php");
+// 🔹 Połączenie z bazą
+require_once "db.php";
 
-$method = $_SERVER['REQUEST_METHOD'];
+// ✅ Na czas developmentu — admin zawsze aktywny
+$_SESSION['role'] = 'admin';
 
-if ($method === 'GET') {
-    $sql = "SELECT * FROM players ORDER BY id DESC";
-    $result = $conn->query($sql);
+// =======================================================
+//  GET — Pobierz wszystkich zawodników
+// =======================================================
+if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $players = [];
+    $result = $conn->query("SELECT * FROM players ORDER BY id ASC");
 
-    while ($row = $result->fetch_assoc()) {
-        $players[] = $row;
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $players[] = $row;
+        }
     }
 
     echo json_encode($players);
     exit;
 }
 
-if ($method === 'POST') {
-    $input = json_decode(file_get_contents("php://input"), true);
+// =======================================================
+//  POST — Dodaj nowego lub zaktualizuj istniejącego
+// =======================================================
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $data = json_decode(file_get_contents("php://input"), true);
 
-    if (!$input || !isset($input["name"]) || !isset($input["position"])) {
-        echo json_encode(["status" => "error", "message" => "Brak wymaganych danych."]);
+    $name = $conn->real_escape_string($data['name'] ?? '');
+    $position = $conn->real_escape_string($data['position'] ?? '');
+    $number = isset($data['number']) ? (int)$data['number'] : 0;
+    $age = isset($data['age']) ? (int)$data['age'] : 0;
+    $image = $conn->real_escape_string($data['image'] ?? '');
+    $role = $conn->real_escape_string($data['role'] ?? 'player');
+    $team = $conn->real_escape_string($data['team'] ?? '');
+
+    // 🔹 AKTUALIZACJA
+    if (isset($data['action']) && $data['action'] === 'update') {
+        $id = (int)$data['id'];
+        $query = "UPDATE players 
+                  SET name='$name', position='$position', number=$number, age=$age, image='$image', role='$role', team='$team'
+                  WHERE id=$id";
+
+        if ($conn->query($query)) {
+            echo json_encode(["status" => "success", "message" => "✅ Zawodnik zaktualizowany."]);
+        } else {
+            echo json_encode(["status" => "error", "message" => "❌ Błąd podczas aktualizacji."]);
+        }
         exit;
     }
 
-        $name = $conn->real_escape_string($input["name"]);
-    $position = $conn->real_escape_string($input["position"]);
-    $number = intval($input["number"]);
-    $age = intval($input["age"]);
-    $image = $conn->real_escape_string($input["image"]);
-    $role = $conn->real_escape_string($input["role"]);
+    // 🔹 DODAWANIE
+    $query = "INSERT INTO players (name, position, number, age, image, role, team) 
+              VALUES ('$name', '$position', $number, $age, '$image', '$role', '$team')";
 
-$sql = "INSERT INTO players (name, position, number, age, image, role)
-        VALUES ('$name', '$position', '$number', '$age', '$image', '$role')";
-
-
-    if ($conn->query($sql) === TRUE) {
-        echo json_encode(["status" => "success", "message" => "Zawodnik dodany pomyślnie!"]);
+    if ($conn->query($query)) {
+        echo json_encode(["status" => "success", "message" => "✅ Zawodnik dodany."]);
     } else {
-        echo json_encode(["status" => "error", "message" => "Błąd zapisu: " . $conn->error]);
+        echo json_encode(["status" => "error", "message" => "❌ Błąd podczas dodawania."]);
     }
     exit;
 }
 
-if ($method === 'DELETE') {
-    parse_str(file_get_contents("php://input"), $input);
-    $id = (int)$input['id'];
-    $sql = "DELETE FROM players WHERE id=$id";
+// =======================================================
+//  DELETE — Usuń zawodnika
+// =======================================================
+if ($_SERVER["REQUEST_METHOD"] === "DELETE") {
+    parse_str($_SERVER["QUERY_STRING"], $query);
+    $id = isset($query["id"]) ? (int)$query["id"] : 0;
 
-    if ($conn->query($sql) === TRUE) {
-        echo json_encode(["status" => "success", "message" => "Zawodnik usunięty."]);
+    if ($id > 0) {
+        $delete = $conn->query("DELETE FROM players WHERE id = $id");
+        if ($delete) {
+            echo json_encode(["status" => "success", "message" => "✅ Zawodnik został usunięty."]);
+        } else {
+            echo json_encode(["status" => "error", "message" => "❌ Błąd podczas usuwania."]);
+        }
     } else {
-        echo json_encode(["status" => "error", "message" => "Nie udało się usunąć."]);
+        echo json_encode(["status" => "error", "message" => "Nieprawidłowe ID."]);
     }
     exit;
 }
 
-$conn->close();
+// =======================================================
+//  Domyślna odpowiedź
+// =======================================================
+http_response_code(400);
+echo json_encode(["status" => "error", "message" => "Nieprawidłowe żądanie."]);
+exit;
 ?>

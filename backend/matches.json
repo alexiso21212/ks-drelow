@@ -1,0 +1,154 @@
+[
+    {
+        "id": "68f28c44e6a86",
+        "round": "1",
+        "date": "10.08.2025",
+        "time": "13:00",
+        "home_team": "KS Drel\u00f3w",
+        "away_team": "Kujawiak Stanin",
+        "location": "Szachy 4A",
+        "score": "2:0",
+        "action": "update"
+    },
+    {
+        "id": "68f28c65e7e70",
+        "round": "2",
+        "date": "17.08.2025",
+        "time": "16:00",
+        "home_team": "\u0141KS \u0141azy",
+        "away_team": "KS Drel\u00f3w",
+        "location": "\u0141azy",
+        "score": "1:1",
+        "action": "update"
+    },
+    {
+        "id": "68f28c9059238",
+        "round": "3",
+        "date": "24.08.2025",
+        "time": "16:00",
+        "home_team": "KS Drel\u00f3w",
+        "away_team": "Red Sielczyk",
+        "location": "Szachy 4A",
+        "score": "4:0"
+    },
+    {
+        "id": "68f28cb68a149",
+        "round": "4",
+        "date": "30.08.2025",
+        "time": "16:00",
+        "home_team": "Sok\u00f3\u0142 Adam\u00f3w",
+        "away_team": "KS Drel\u00f3w",
+        "location": "Adam\u00f3w",
+        "score": "0:1"
+    },
+    {
+        "id": "68f28cda9354a",
+        "round": "5",
+        "date": "7.09.2025",
+        "time": "13:00",
+        "home_team": "KS Drel\u00f3w",
+        "away_team": "Unia Krzywda",
+        "location": "Szachy 4A",
+        "score": "6:0"
+    },
+    {
+        "id": "68f28d0c9d87f",
+        "round": "6",
+        "date": "14.09.2025",
+        "time": "16:00",
+        "home_team": "Bizon Jeleniec",
+        "away_team": "KS Drel\u00f3w",
+        "location": "Jeleniec",
+        "score": "2:2"
+    },
+    {
+        "id": "68f28d2e553db",
+        "round": "7",
+        "date": "21.09.2025",
+        "time": "16:00",
+        "home_team": "KS Drel\u00f3w",
+        "away_team": "Lutnia Piszczac",
+        "location": "Szachy 4A",
+        "score": "2:3"
+    },
+    {
+        "id": "68f28d4f00985",
+        "round": "8",
+        "date": "27.09.2025",
+        "time": "16:00",
+        "home_team": "LKS Milan\u00f3w",
+        "away_team": "KS Drel\u00f3w",
+        "location": "Milan\u00f3w",
+        "score": "1:3"
+    },
+    {
+        "id": "68f28d84c2233",
+        "round": "9",
+        "date": "5.10.2025",
+        "time": "15:00",
+        "home_team": "KS Drel\u00f3w",
+        "away_team": "AZ-BUD Komar\u00f3wka Podlaska",
+        "location": "Szachy 4A",
+        "score": "1:3"
+    },
+    {
+        "id": "68f28da579837",
+        "round": "10",
+        "date": "11.10.2025",
+        "time": "18:00",
+        "home_team": "Victoria Parczew",
+        "away_team": "KS Drel\u00f3w",
+        "location": "Parczew",
+        "score": "1:4"
+    },
+    {
+        "id": "68f28dbeb06fd",
+        "round": "11",
+        "date": "19.10.2025",
+        "time": "14:30",
+        "home_team": "KS Drel\u00f3w",
+        "away_team": "Podlasie II Bia\u0142a Podlaska",
+        "location": "Szachy 4A",
+        "score": ""
+    },
+    {
+        "id": "68f28dddc9b7e",
+        "round": "12",
+        "date": "26.10.2025",
+        "time": "15:00",
+        "home_team": "Unia \u017babik\u00f3w",
+        "away_team": "KS Drel\u00f3w",
+        "location": "\u017babik\u00f3w",
+        "score": ""
+    },
+    {
+        "id": "68f28e0469e48",
+        "round": "13",
+        "date": "2.11.2025",
+        "time": "-",
+        "home_team": "KS Drel\u00f3w",
+        "away_team": "Absolwent Domaszewnica",
+        "location": "Szachy 4A",
+        "score": ""
+    },
+    {
+        "id": "68f28e21ceff8",
+        "round": "14",
+        "date": "9.11.2025",
+        "time": "-",
+        "home_team": "KS Drel\u00f3w",
+        "away_team": "Orze\u0142 Czemierniki",
+        "location": "Szachy 4A",
+        "score": ""
+    },
+    {
+        "id": "68f28e40575b4",
+        "round": "15",
+        "date": "16.11.2025",
+        "time": "-",
+        "home_team": "Grom K\u0105kolewnica",
+        "away_team": "KS Drel\u00f3w",
+        "location": "K\u0105kolewnica",
+        "score": ""
+    }
+]
