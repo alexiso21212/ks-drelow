@@ -310,12 +310,210 @@ const handleUpdateAcademyPlayer = async (e) => {
   fetchAcademy();
 };
 
+// STADION
+const [opis, setOpis] = useState("");
+const [zdjecia, setZdjecia] = useState([]);
+const [videoUrl, setVideoUrl] = useState("");
+const [noweZdjecie, setNoweZdjecie] = useState({
+  url: "",
+  opis: ""
+});
+
+// 🔹 POBIERANIE danych stadionu
+useEffect(() => {
+  fetch("http://localhost:8888/ks-drelow-api/stadion.php")
+    .then((res) => res.json())
+    .then((dane) => {
+      setOpis(dane.opis || "");
+      setZdjecia(dane.zdjecia || []);
+      setVideoUrl(dane.video_url || "");
+    })
+    .catch((err) => console.error("Błąd wczytywania danych stadionu:", err));
+}, []);
+
+// 💾 ZAPISANIE opisu i filmu stadionu
+const zapiszOpis = () => {
+  fetch("http://localhost:8888/ks-drelow-api/stadion.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action: "updateOpis",
+      opis: opis,
+      video_url: videoUrl
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status === "success") {
+        alert("✅ Opis stadionu został zaktualizowany!");
+      } else {
+        alert("❌ Wystąpił błąd podczas zapisu opisu stadionu.");
+      }
+    })
+    .catch(() => alert("⚠️ Błąd połączenia z serwerem."));
+};
+
+// ➕ DODANIE nowego zdjęcia stadionu
+const dodajZdjecie = () => {
+  if (!noweZdjecie.url) {
+    alert("Podaj link do zdjęcia!");
+    return;
+  }
+
+  fetch("http://localhost:8888/ks-drelow-api/stadion.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      image_url: noweZdjecie.url,
+      opis_zdjecia: noweZdjecie.opis
+    }),
+  })
+    .then((res) => res.json())
+    .then(() => {
+      alert("✅ Zdjęcie dodane");
+      setNoweZdjecie({ url: "", opis: "" });
+      return fetch("http://localhost:8888/ks-drelow-api/stadion.php");
+    })
+    .then((res) => res.json())
+    .then((dane) => setZdjecia(dane.zdjecia))
+    .catch((err) => console.error("Błąd dodawania zdjęcia:", err));
+};
+
+// 🏗️ Edycja i usuwanie zdjęć stadionu
+const [edytowaneZdjecie, setEdytowaneZdjecie] = useState(null);
+
+// 🗑️ USUWANIE zdjęcia stadionu
+const usunZdjecie = (id) => {
+  if (window.confirm("Na pewno usunąć to zdjęcie?")) {
+    fetch(`http://localhost:8888/ks-drelow-api/stadion.php?id=${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then(() => {
+        setZdjecia(zdjecia.filter((z) => z.id !== id));
+      });
+  }
+};
+
+// ✏️ ZAPIS EDYCJI zdjęcia stadionu
+const zapiszEdycjeZdjecia = async () => {
+  if (!edytowaneZdjecie || !edytowaneZdjecie.image_url) {
+    alert("Podaj poprawny adres URL zdjęcia!");
+    return;
+  }
+
+  await fetch("http://localhost:8888/ks-drelow-api/stadion.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: edytowaneZdjecie.id,
+      image_url: edytowaneZdjecie.image_url,
+      opis_zdjecia: edytowaneZdjecie.opis,
+      action: "updateZdjecie",
+    }),
+  });
+
+  // 🔄 Odświeżenie listy zdjęć po zapisaniu
+  fetch("http://localhost:8888/ks-drelow-api/stadion.php")
+    .then((res) => res.json())
+    .then((dane) => {
+      setZdjecia(dane.zdjecia);
+      setEdytowaneZdjecie(null);
+    });
+};
+
+  
+  // ============================
+// 📸 GALERIA
+// ============================
+
+// 👉 STANY GALERII (upewnij się, że masz je na górze razem z innymi useState)
+const [zdjeciaGalerii, setZdjeciaGalerii] = useState([]);
+const [noweZdjecieGalerii, setNoweZdjecieGalerii] = useState({ url: "", opis: "" });
+
+// 👉 POBRANIE ZDJĘĆ GALERII PO URUCHOMIENIU
+useEffect(() => {
+  fetch("http://localhost:8888/ks-drelow-api/galeria.php")
+    .then((res) => res.json())
+    .then((dane) => setZdjeciaGalerii(dane))
+    .catch((err) => console.error("Błąd galerii:", err));
+}, []);
+
+// 👉 DODAWANIE NOWEGO ZDJĘCIA
+const dodajZdjecieGalerii = () => {
+  if (!noweZdjecieGalerii.url) {
+    alert("Podaj link do zdjęcia!");
+    return;
+  }
+
+  fetch("http://localhost:8888/ks-drelow-api/galeria.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      image_url: noweZdjecieGalerii.url,
+      opis_zdjecia: noweZdjecieGalerii.opis,
+    }),
+  })
+    .then((res) => res.json())
+    .then(() => {
+      alert("✅ Zdjęcie dodane do galerii");
+      setNoweZdjecieGalerii({ url: "", opis: "" });
+      return fetch("http://localhost:8888/ks-drelow-api/galeria.php");
+    })
+    .then((res) => res.json())
+    .then((dane) => setZdjeciaGalerii(dane));
+};
+
+// 👉 USUWANIE ZDJĘCIA
+const usunZdjecieGalerii = (id) => {
+  if (window.confirm("Na pewno usunąć to zdjęcie z galerii?")) {
+    fetch(`http://localhost:8888/ks-drelow-api/galeria.php?id=${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then(() => setZdjeciaGalerii(zdjeciaGalerii.filter((z) => z.id !== id)));
+  }
+};
+
+// ✏️ Edycja zdjęcia w galerii
+const [edytowaneZdjecieGalerii, setEdytowaneZdjecieGalerii] = useState(null);
+const zapiszEdycjeGalerii = async () => {
+  if (!edytowaneZdjecieGalerii || !edytowaneZdjecieGalerii.image_url) {
+    alert("Podaj poprawny adres URL zdjęcia!");
+    return;
+  }
+
+  await fetch("http://localhost:8888/ks-drelow-api/galeria.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: edytowaneZdjecieGalerii.id,
+      image_url: edytowaneZdjecieGalerii.image_url,
+      opis_zdjecia: edytowaneZdjecieGalerii.opis_zdjecia,
+      action: "updateGaleria",
+    }),
+  });
+
+  // 🔄 Odśwież listę zdjęć po zapisaniu
+  fetch("http://localhost:8888/ks-drelow-api/galeria.php")
+    .then((res) => res.json())
+    .then((dane) => {
+      setZdjeciaGalerii(dane);
+      setEdytowaneZdjecieGalerii(null);
+    });
+};
+
+
+
+
   // ============================
   // 🧱 STRUKTURA STRONY
   // ============================
   return (
     <div className="admin-panel">
       <h1>Panel zarządzania ⚙️</h1>
+
+      
 
       {/* ZAWODNICY */}
       <section>
@@ -716,9 +914,168 @@ const handleUpdateAcademyPlayer = async (e) => {
   ))}
 </div>
 </section>
-    </div>
-    
-  );
-}
+{/* ===================== STADION ===================== */}
+<section>
+  <h2>🏟️ Zarządzanie stadionem</h2>
 
+  <div className="stadion-admin">
+    <label>Opis stadionu:</label>
+    <textarea
+      value={opis}
+      onChange={(e) => setOpis(e.target.value)}
+      rows="5"
+      placeholder="Wpisz opis boiska, infrastruktury, zaplecza..."
+    ></textarea>
+
+    <label>🎥 Link do filmu (YouTube, Vimeo itp.):</label>
+    <input
+      type="text"
+      value={videoUrl}
+      onChange={(e) => setVideoUrl(e.target.value)}
+      placeholder="https://www.youtube.com/embed/..."
+      className="video-input"
+    />
+
+    <button onClick={zapiszOpis}>💾 Zapisz opis i film</button>
+  </div>
+
+  <div className="dodaj-zdjecie">
+    <h3>Dodaj zdjęcie stadionu</h3>
+    <input
+      type="text"
+      placeholder="Adres URL zdjęcia"
+      value={noweZdjecie.url}
+      onChange={(e) => setNoweZdjecie({ ...noweZdjecie, url: e.target.value })}
+    />
+    <input
+      type="text"
+      placeholder="Krótki opis zdjęcia (opcjonalnie)"
+      value={noweZdjecie.opis}
+      onChange={(e) => setNoweZdjecie({ ...noweZdjecie, opis: e.target.value })}
+    />
+    <button onClick={dodajZdjecie}>➕ Dodaj zdjęcie</button>
+  </div>
+
+  <div className="lista-zdjec">
+    <h3>📸 Aktualne zdjęcia stadionu</h3>
+    <div className="zdjecia-grid">
+      {zdjecia.map((z) => (
+        <div key={z.id} className="zdjecie-kafelek">
+          {edytowaneZdjecie && edytowaneZdjecie.id === z.id ? (
+            <>
+              <input
+                type="text"
+                value={edytowaneZdjecie.image_url}
+                onChange={(e) =>
+                  setEdytowaneZdjecie({
+                    ...edytowaneZdjecie,
+                    image_url: e.target.value,
+                  })
+                }
+                placeholder="Nowy link do zdjęcia"
+              />
+              <input
+                type="text"
+                value={edytowaneZdjecie.opis}
+                onChange={(e) =>
+                  setEdytowaneZdjecie({
+                    ...edytowaneZdjecie,
+                    opis: e.target.value,
+                  })
+                }
+                placeholder="Nowy opis zdjęcia"
+              />
+              <button onClick={zapiszEdycjeZdjecia}>💾 Zapisz</button>
+              <button onClick={() => setEdytowaneZdjecie(null)}>❌ Anuluj</button>
+            </>
+          ) : (
+            <>
+              <img src={z.image_url} alt="stadion" />
+              <p>{z.opis}</p>
+              <button onClick={() => setEdytowaneZdjecie(z)}>✏️ Edytuj</button>
+              <button onClick={() => usunZdjecie(z.id)}>🗑️ Usuń</button>
+            </>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+{/* ===================== GALERIA ===================== */}
+<section>
+  <h2>🖼️ Zarządzanie galerią</h2>
+
+  <div className="dodaj-zdjecie">
+    <h3>Dodaj zdjęcie do galerii</h3>
+    <input
+      type="text"
+      placeholder="Adres URL zdjęcia"
+      value={noweZdjecieGalerii.url}
+      onChange={(e) =>
+        setNoweZdjecieGalerii({ ...noweZdjecieGalerii, url: e.target.value })
+      }
+    />
+    <input
+      type="text"
+      placeholder="Opis zdjęcia (opcjonalnie)"
+      value={noweZdjecieGalerii.opis}
+      onChange={(e) =>
+        setNoweZdjecieGalerii({ ...noweZdjecieGalerii, opis: e.target.value })
+      }
+    />
+    <button onClick={dodajZdjecieGalerii}>➕ Dodaj zdjęcie</button>
+  </div>
+
+  <div className="lista-zdjec">
+    <h3>📷 Aktualne zdjęcia w galerii</h3>
+    <div className="zdjecia-grid">
+      {zdjeciaGalerii.map((z) => (
+        <div key={z.id} className="zdjecie-kafelek">
+          {edytowaneZdjecieGalerii && edytowaneZdjecieGalerii.id === z.id ? (
+            <>
+              <input
+                type="text"
+                value={edytowaneZdjecieGalerii.image_url}
+                onChange={(e) =>
+                  setEdytowaneZdjecieGalerii({
+                    ...edytowaneZdjecieGalerii,
+                    image_url: e.target.value,
+                  })
+                }
+                placeholder="Nowy link do zdjęcia"
+              />
+              <input
+                type="text"
+                value={edytowaneZdjecieGalerii.opis_zdjecia}
+                onChange={(e) =>
+                  setEdytowaneZdjecieGalerii({
+                    ...edytowaneZdjecieGalerii,
+                    opis_zdjecia: e.target.value,
+                  })
+                }
+                placeholder="Nowy opis zdjęcia"
+              />
+              <button onClick={zapiszEdycjeGalerii}>💾 Zapisz</button>
+              <button onClick={() => setEdytowaneZdjecieGalerii(null)}>
+                ❌ Anuluj
+              </button>
+            </>
+          ) : (
+            <>
+              <img src={z.image_url} alt="galeria" />
+              <p>{z.opis_zdjecia}</p>
+              <button onClick={() => setEdytowaneZdjecieGalerii(z)}>
+                ✏️ Edytuj
+              </button>
+              <button onClick={() => usunZdjecieGalerii(z.id)}>🗑️ Usuń</button>
+            </>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+</div> 
+);
+}
 export default AdminPanel;

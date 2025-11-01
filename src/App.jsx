@@ -1,12 +1,12 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Players from "./pages/Players";
 import Coaches from "./pages/Coaches";
 import Schedule from "./pages/Terminarz";
 import Contact from "./pages/Contact";
-import "./App.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminPanel from "./pages/AdminPanel";
@@ -20,14 +20,20 @@ import Tabela from "./pages/Tabela";
 import MlodzikStarszy from "./pages/MlodzikStarszy";
 import OrlikMlody from "./pages/OrlikMlody";
 import AkademiaPrzedszkolaka from "./pages/AkademiaPrzedszkolaka";
-
-
+import Stadion from "./pages/Stadion";
+import "./App.css";
 
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
+      {/* 🔹 Automatyczne przewijanie na górę przy zmianie strony */}
+      <ScrollToTop />
+
+      {/* 🔹 Pasek nawigacji */}
       <Navbar />
+
+      {/* 🔹 Główna zawartość strony */}
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -43,19 +49,17 @@ function App() {
           <Route path="/historia" element={<Historia />} />
           <Route path="/galeria" element={<Galeria />} />
           <Route path="/aktualnosci" element={<Aktualnosci />} />
-          <Route path="/terminarz" element={<Terminarz />} />
           <Route path="/tabela" element={<Tabela />} />
           <Route path="/mlodzik-starszy" element={<MlodzikStarszy />} />
           <Route path="/orlik-mlodszy" element={<OrlikMlody />} />
           <Route path="/akademia-przedszkolaka" element={<AkademiaPrzedszkolaka />} />
-
-
-
-
+          <Route path="/stadion" element={<Stadion />} />
         </Routes>
       </main>
+
+      {/* 🔹 Stopka */}
       <Footer />
-    </Router>
+    </BrowserRouter>
   );
 }
 

@@ -1,23 +1,115 @@
 .footer {
-    background-color: #001f3f;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-  }
-  
-  .footer p {
-    margin: 0;
-    font-size: 0.9rem;
-  }
-  
-  .footer a {
-    color: #ffcc00;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  
-  .footer a:hover {
-    text-decoration: underline;
-  }
-  
+  background-color: #222;
+  color: white;
+  padding: 40px 0 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 250px;
+  margin: 10px;
+}
+
+.footer-logo {
+  width: 80px;
+  margin-bottom: 10px;
+}
+
+.footer h2 {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.footer-desc {
+  font-size: 14px;
+  color: #ccc;
+  line-height: 1.5;
+}
+
+.footer-column h3 {
+  color: #ffcc00;
+  margin-bottom: 10px;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin: 6px 0;
+}
+
+.footer-column ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-column ul li a:hover {
+  color: #ffcc00;
+}
+
+.footer-column p {
+  font-size: 14px;
+  color: #ccc;
+  margin: 5px 0;
+}
+
+.footer-column svg {
+  margin-right: 8px;
+  color: #ffcc00;
+}
+
+/* 🔹 Sekcja Facebooków */
+.footer-socials {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.facebook-link {
+  display: flex;
+  align-items: center;
+  color: #ffcc00;
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 15px;
+}
+
+.facebook-link:hover {
+  color: white;
+}
+
+.fb-icon {
+  font-size: 22px;
+  margin-right: 8px;
+}
+
+/* 🔹 Dolna część stopki */
+.footer-bottom {
+  border-top: 1px solid #444;
+  text-align: center;
+  padding-top: 15px;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #bbb;
+}
+
+.footer-bottom .author {
+  color: #ffcc00;
+}

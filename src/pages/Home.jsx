@@ -1,6 +1,13 @@
 import "./Home.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
+
+// 📸 Importy obrazków
 import stadion from "../assets/images/stadion.jpg";
+import aboutImage from "../assets/images/logo1.png";
+import klub1 from "../assets/images/klub1.jpg";
+
 import sponsor1 from "../assets/images/sponsor1.jpg";
 import sponsor2 from "../assets/images/sponsor2.jpg";
 import sponsor3 from "../assets/images/sponsor3.jpg";
@@ -16,14 +23,16 @@ import sponsor12 from "../assets/images/sponsor12.jpg";
 import sponsor13 from "../assets/images/sponsor13.jpg";
 import sponsor14 from "../assets/images/sponsor14.jpg";
 import sponsor15 from "../assets/images/sponsor15.jpg";
-import klub1 from "../assets/images/klub1.jpg";
-import aboutImage from "../assets/images/logo1.png";
 
 function Home() {
-  // 🔹 Stan na aktualności
   const [news, setNews] = useState([]);
 
-  // 🔹 Pobierz najnowsze aktualności (max 3)
+  // 🔹 Inicjalizacja AOS (animacje)
+  useEffect(() => {
+    AOS.init({ duration: 800, once: true });
+  }, []);
+
+  // 🔹 Pobierz najnowsze aktualności
   useEffect(() => {
     const fetchNews = async () => {
       try {
@@ -39,7 +48,10 @@ function Home() {
 
   return (
     <div className="home">
-      {/* 🔹 Baner */}
+
+      {/* ====================== */}
+      {/* 🏟️ Baner główny */}
+      {/* ====================== */}
       <section className="hero" style={{ backgroundImage: `url(${stadion})` }}>
         <div className="overlay">
           <div className="hero-content">
@@ -59,17 +71,20 @@ function Home() {
         </div>
       </section>
 
-      {/* 🔹 Sekcja o klubie */}
+      {/* ====================== */}
+      {/* 🧭 Sekcja o klubie */}
+      {/* ====================== */}
       <section className="about">
         <div className="about-content" data-aos="fade-right">
           <h2>O klubie</h2>
           <p>
             KS Drelów to klub z pasją i tradycją. Naszym celem jest rozwój
-            młodych zawodników oraz propagowanie zdrowego stylu życia. Stawiamy
-            na współpracę, zaangażowanie i budowanie sportowej wspólnoty wśród
-            dzieci i młodzieży.
+            młodych zawodników oraz propagowanie zdrowego stylu życia.
+            Stawiamy na współpracę, zaangażowanie i budowanie sportowej
+            wspólnoty wśród dzieci i młodzieży.
           </p>
         </div>
+
         <div
           className="about-image"
           data-aos="fade-left"
@@ -77,31 +92,37 @@ function Home() {
         ></div>
       </section>
 
-      {/* 🔹 Aktualności */}
-          <section className="news">
-      <h2>Aktualności 📰</h2>
+      {/* ====================== */}
+      {/* 📰 Sekcja aktualności */}
+      {/* ====================== */}
+      <section className="news">
+        <h2 data-aos="fade-up">Aktualności</h2>
 
-      {news.length === 0 ? (
-        <p>Brak aktualności do wyświetlenia.</p>
-      ) : (
-        <div className="news-grid">
-          {news.map((n) => (
-            <article key={n.id} className="news-card">
-            <img src={n.image} alt={n.title} />
-            <div className="news-content">
-              <h3>{n.title}</h3>
-              <a href="/aktualnosci" className="btn">Czytaj więcej</a>
-            </div>
-          </article>
-          
-          ))}
-        </div>
-      )}
-    </section>
+        {news.length === 0 ? (
+          <p>Brak aktualności do wyświetlenia.</p>
+        ) : (
+          <div className="news-grid">
+            {news.map((n, index) => (
+              <article key={index} className="news-card" data-aos="zoom-in">
+                <img src={n.image} alt={n.title} />
+                <div className="news-content">
+                  <h3>{n.title}</h3>
+                  <a href="/aktualnosci" className="btn">
+                    Czytaj więcej
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
 
-      {/* 🔹 Sponsorzy */}
+      {/* ====================== */}
+      {/* 🏆 Sekcja sponsorów */}
+      {/* ====================== */}
       <section className="sponsors">
         <h2 data-aos="fade-up">Nasi sponsorzy i partnerzy</h2>
+
         <div className="sponsor-grid">
           {[
             sponsor1, sponsor2, sponsor3, sponsor4, sponsor5, sponsor6,
@@ -119,6 +140,8 @@ function Home() {
           ))}
         </div>
       </section>
+
+      
     </div>
   );
 }

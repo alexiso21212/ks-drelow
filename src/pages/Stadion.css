@@ -1,0 +1,219 @@
+.stadion-page {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .stadion-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #1a1a1a;
+  }
+  
+  .stadion-info {
+    background: #ffffff;
+    padding: 25px;
+    margin: 0 auto 40px;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    text-align: left;
+  }
+  
+  .stadion-info h2 {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .stadion-info ul {
+    list-style-type: disc;
+    padding-left: 40px;
+    color: #1a1a1a;
+  }
+  
+  .stadion-info li {
+    margin-bottom: 8px;
+    font-size: 1rem;
+  }
+  
+  .stadion-opis {
+    background: #ffffff;
+    max-width: 800px;
+    margin: 0 auto 50px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .stadion-galeria {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+  }
+  
+  .zdjecie-box {
+    width: 300px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .zdjecie-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  }
+  
+  .zdjecie-box img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .zdjecie-box p {
+    padding: 10px;
+    font-size: 0.95rem;
+    color: #333;
+    font-style: italic;
+  }
+  
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .modal-img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  .brak-zdjec {
+    font-style: italic;
+    color: #777;
+  }
+/* === INFO SEKCJA O OBIEKTACH === */
+
+.stadion-info {
+    background: #ffffff;
+    padding: 40px 30px;
+    margin: 0 auto 50px auto;
+    max-width: 1100px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    text-align: center;
+  }
+  
+  .stadion-subtitle {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    color: #1a1a1a;
+  }
+  
+  .stadion-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+  }
+  
+  .stadion-card {
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+    padding: 25px 20px;
+    width: 320px;
+    transition: all 0.3s ease;
+    text-align: left;
+  }
+  
+  .stadion-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .stadion-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #003366; /* kolor klubowy, możesz zmienić */
+  }
+  
+  .stadion-card p {
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.6;
+    margin: 5px 0;
+  }
+  
+  @media (max-width: 768px) {
+    .stadion-cards {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  .fb-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #1877f2;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+  }
+  
+  .fb-link:hover {
+    background-color: #0f5ed7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(24, 119, 242, 0.4);
+  }
+  
+  .fb-icon {
+    font-size: 1.1rem;
+  }
+  .stadion-video {
+    margin: 30px auto;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .stadion-video iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+    
